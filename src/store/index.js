@@ -1,10 +1,10 @@
-import { createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
+// import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 // const redux = require("redux");
 
 const initialState = { counter: 0, showCounter: true };
 
-const couterSlice = createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState: initialState,
   reducers: {
@@ -15,7 +15,7 @@ const couterSlice = createSlice({
       state.counter--;
     },
     increase(state, action) {
-      state.counter = state.counter + action.amount;
+      state.counter = state.counter + action.payload;
     },
     toggleCounter(state) {
       state.showCounter = !state.showCounter;
@@ -23,38 +23,11 @@ const couterSlice = createSlice({
   },
 });
 
-const counterReducer = (state = initialState, action) => {
-  if (action.type === "INCREMENT") {
-    return {
-      counter: state.counter + 1,
-      showCounter: state.showCounter,
-    };
-  }
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
 
-  if (action.type === "INCREASE") {
-    return {
-      counter: state.counter + action.amount,
-      showCounter: state.showCounter,
-    };
-  }
-
-  if (action.type === "DECREMENT") {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
-
-  if (action.type === "TOGGLE") {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
-
-  return state;
-};
-
-const store = createStore(counterReducer);
+// 액션 생성자. 직접 액션 객체를 생성할 필요가 없다.
+export const counterActions = counterSlice.actions;
 
 export default store;
