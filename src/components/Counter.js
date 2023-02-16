@@ -6,10 +6,10 @@ import classes from "./Counter.module.css";
 const Counter = () => {
   const dispatch = useDispatch();
   const counter = useSelector((state) => {
-    return state.counter;
+    return state.counter.counter;
   });
   const isShow = useSelector((state) => {
-    return state.showCounter;
+    return state.counter.showCounter;
   });
 
   const increaseHandler = () => {
